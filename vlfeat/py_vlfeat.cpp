@@ -14,8 +14,6 @@
 #include <numpy/arrayobject.h> // in python/lib/site-packages/....
 
 #include "py_vlfeat.h"
-#include "kmeans/vl_ikmeans.h"
-#include "kmeans/vl_hikmeans.h"
 
 #define NUMPY_IMPORT_ARRAY_RETVAL
 
