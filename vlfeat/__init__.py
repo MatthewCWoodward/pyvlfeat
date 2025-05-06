@@ -1,6 +1,6 @@
 import _vlfeat
 import numpy
-from vlfeat.quickshift import vl_quickseg,vl_quickvis
+
 
 def vl_sift(
 		data, 
@@ -203,62 +203,6 @@ def vl_imsmooth(I, sigma):
 	if not I.flags['F_CONTIGUOUS']:
 		I = numpy.array(I, order='F')
 	return _vlfeat.vl_imsmooth(I, sigma)
-
-
-def vl_ikmeans(data, K, max_niters=200, method='lloyd', verbose=0):
-	""" Integer K-means.
-	[C, I] = VL_IKMEANS(X,K) returns the centers of a K-means partitioning of
-	the data space X the cluster associations I of the data. X must be of class 
-	UINT8. C is of class UINT32.\n\n
-	
-	VL_IKMEANS() accepts the following options: \n
-	
-	@param max_niters  Maximum number of iterations before giving up (the 
-	                   algorithm stops as soon as there is no change in the data
-	                   to cluster associations).
-	@param method      Algorithm to use ('Lloyd', 'Elkan').
-	@param verbose     Increase the verbosity level.
-	"""
-	if not data.flags['F_CONTIGUOUS']:
-		data = numpy.array(data, order='F')
-	return _vlfeat.vl_ikmeans(data, K, max_niters, method, verbose)
-
-def vl_ikmeanspush(data, centers, method='lloyd', verbose=0):
-	""" VL_IKMEANSPUSH  Project data on integer K-means partitions
-	I = VL_IKMEANSPUSH(X,C) projects the data X to the integer K-means clusters
-	of centers C returning the cluster indices I.
-	"""
-	if not data.flags['F_CONTIGUOUS']:
-		data = numpy.array(data, order='F')
-	if not centers.flags['F_CONTIGUOUS']:
-		centers = numpy.array(centers, order='F')
-	return _vlfeat.vl_ikmeanspush(data, centers, method, verbose)
-	
-def vl_binsum(H, X, B, DIM=-1):
-	"""
-	"""	
-	if not H.flags['F_CONTIGUOUS']:
-		H = numpy.array(H, order='F')
-	if not X.flags['F_CONTIGUOUS']:
-		X = numpy.array(X, order='F')
-	if not B.flags['F_CONTIGUOUS']:
-		B = numpy.array(B, order='F')
-	return  _vlfeat.vl_binsum(H, X, B, DIM)
-
-def vl_hikmeans(data, K, nleaves, verb=0, max_iters=200, method='lloyd'):
-	"""
-	"""
-	if not data.flags['F_CONTIGUOUS']:
-		data = numpy.array(data, order='F')
-	return _vlfeat.vl_hikmeans(data, K, nleaves, verb, max_iters, method)
-		
-def vl_hikmeanspush(tree, data, verb=0, method='lloyd'):
-	"""
-	"""
-	if not data.flags['F_CONTIGUOUS']:
-		data = numpy.array(data, order='F')
-	return _vlfeat.vl_hikmeanspush(tree, data, verb, method)
-		
 
 def vl_rgb2gray(data):
 	""" Rgb 2 gray consersion giving the same result as matlab own conversion 

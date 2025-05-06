@@ -14,34 +14,25 @@ import numpy
 __version__ = '0.1.1a3'
 
 vlfeat_src = ['vlfeat/vl/aib.c', 'vlfeat/vl/generic.c',
-              'vlfeat/vl/hikmeans.c', 'vlfeat/vl/ikmeans.c',
               'vlfeat/vl/imopv.c', 'vlfeat/vl/mathop.c',
               'vlfeat/vl/mathop_sse2.c', 'vlfeat/vl/pgm.c',
               'vlfeat/vl/rodrigues.c', 'vlfeat/vl/stringop.c',
               'vlfeat/vl/getopt_long.c', 'vlfeat/vl/host.c',
               'vlfeat/vl/imopv_sse2.c', 'vlfeat/vl/mser.c',
               'vlfeat/vl/random.c', 'vlfeat/vl/sift.c',
-              'vlfeat/vl/dsift.c', 'vlfeat/vl/quickshift.c',
-              'vlfeat/mser/vl_erfill.cpp', 'vlfeat/mser/vl_mser.cpp',
-              'vlfeat/sift/vl_sift.cpp', 'vlfeat/sift/vl_dsift.cpp',
-              'vlfeat/sift/vl_siftdescriptor.cpp', 'vlfeat/imop/vl_imsmooth.cpp',
-              'vlfeat/misc/vl_binsum.cpp', 'vlfeat/kmeans/vl_hikmeans.cpp',
-              'vlfeat/kmeans/vl_ikmeans.cpp', 'vlfeat/kmeans/vl_hikmeanspush.cpp',
-              'vlfeat/kmeans/vl_ikmeanspush.cpp', 'vlfeat/quickshift/vl_quickshift.cpp',
-              'vlfeat/py_vlfeat.cpp']
+              'vlfeat/vl/dsift.c', 'vlfeat/mser/vl_erfill.cpp',
+              'vlfeat/mser/vl_mser.cpp', 'vlfeat/sift/vl_sift.cpp',
+              'vlfeat/sift/vl_dsift.cpp', 'vlfeat/sift/vl_siftdescriptor.cpp',
+              'vlfeat/imop/vl_imsmooth.cpp', 'vlfeat/py_vlfeat.cpp']
 
 vlfeat_dep = ['vlfeat/vl/aib.h', 'vlfeat/vl/generic.h',
-              'vlfeat/vl/hikmeans.h', 'vlfeat/vl/ikmeans.h',
               'vlfeat/vl/imopv.h', 'vlfeat/vl/mathop.h',   
               'vlfeat/vl/mathop_sse2.h', 'vlfeat/vl/pgm.h',
               'vlfeat/vl/rodrigues.h', 'vlfeat/vl/stringop.h',
               'vlfeat/vl/getopt_long.h', 'vlfeat/vl/host.h',
               'vlfeat/vl/imopv_sse2.h', 'vlfeat/vl/mser.h',
               'vlfeat/vl/random.h', 'vlfeat/vl/sift.h',
-              'vlfeat/vl/dsift.h', 'vlfeat/vl/quickshift.h',
-              'vlfeat/kmeans/vl_hikmeans.h', 'vlfeat/kmeans/vl_ikmeans.h',
-              'vlfeat/quickshift/vl_quickshift.h', 'vlfeat/py_vlfeat.h'
-              ]
+              'vlfeat/vl/dsift.h', 'vlfeat/py_vlfeat.h']
 
 env_path = sys.prefix
 IncludeDirs = ['vlfeat/', numpy.get_include(), os.path.join(env_path, 'include')]
@@ -65,13 +56,10 @@ setup(name = 'pyvlfeat', version = __version__,
       packages = ['vlfeat'],
       package_dir = { 'vlfeat' : 'vlfeat' },
       ext_modules = [mkExtension('vlfeat')],
-      py_modules  = ['vlfeat.__init__', 'vlfeat.kmeans.__init__',
-                     'vlfeat.kmeans.vl_hikmeanshist', 'vlfeat.kmeans.vl_ikmeanshist',
-                     'vlfeat.misc.__init__', 'vlfeat.misc.colorspaces', 
-                     'vlfeat.mser.__init__', 'vlfeat.mser.vl_ertr', 
-                     'vlfeat.plotop.__init__', 'vlfeat.plotop.vl_plotframe', 
-                     'vlfeat.quickshift.__init__', 'vlfeat.test.__init__',
-                     'vlfeat.test.vl_test_hikmeans', 'vlfeat.test.vl_test_ikmeans',
+      py_modules  = ['vlfeat.__init__', 'vlfeat.misc.__init__',
+                     'vlfeat.misc.colorspaces', 'vlfeat.mser.__init__',
+                     'vlfeat.mser.vl_ertr', 'vlfeat.plotop.__init__',
+                     'vlfeat.plotop.vl_plotframe', 'vlfeat.test.__init__',
                      'vlfeat.test.vl_test_pattern'],
       cmdclass = { "build_ext" : BuildExtension },
       description = 'Python interface to the VLFeat library',

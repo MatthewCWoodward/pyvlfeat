@@ -104,19 +104,5 @@ PyObject * vl_siftdescriptor_python(
  */
 PyObject * vl_imsmooth_python(PyArrayObject & image, double sigma);
 
-/**
- *
- * @param H
- * @param X
- * @param B
- * @param DIM
- * @return
- */
-PyObject * vl_binsum_python(
-		PyArrayObject & H,
-		PyArrayObject & X,
-		PyArrayObject & B,
-		int DIM);
-
 
 
