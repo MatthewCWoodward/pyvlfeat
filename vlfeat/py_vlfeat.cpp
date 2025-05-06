@@ -75,6 +75,6 @@ BOOST_PYTHON_MODULE(_vlfeat)
 	def("vl_quickshift_get_density", vl_quickshift_get_density_python);
 	/// ------------------------------------------------------------------------
 
-	import_array();
+	_import_array();
 }
 

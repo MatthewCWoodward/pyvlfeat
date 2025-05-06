@@ -43,12 +43,14 @@ vlfeat_dep = ['vlfeat/vl/aib.h', 'vlfeat/vl/generic.h',
               'vlfeat/quickshift/vl_quickshift.h', 'vlfeat/py_vlfeat.h'
               ]
 
-IncludeDirs = ['vlfeat/', numpy.get_include()]
-LibraryDirs = None
+env_path = sys.prefix
+IncludeDirs = ['vlfeat/', numpy.get_include(), os.path.join(env_path, 'include')]
+LibraryDirs = [os.path.join(env_path, 'lib')]
 Libraries = None
 BuildExtension = build_ext
-CompileArgs = ['-msse2', '-O2', '-fPIC', '-w']
-LinkArgs = ['-msse', '-shared', '-lboost_python3']
+CompileArgs = ['-msse2', '-O2', '-fPIC', '-w', '-std=c++11']
+python_version = f'{sys.version_info.major}{sys.version_info.minor}'
+LinkArgs = ['-msse', '-shared', f'-lboost_python{python_version}']
 
 def mkExtension(name):
     modname = '_' + name.lower()

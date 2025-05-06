@@ -104,6 +104,7 @@ PyObject * vl_sift_python(
 		double opt_magnif,
 		double opt_window_size,
 		bool opt_orientations,
+		bool opt_upright_sift,
 		int opt_verbose)
 {
 	// check types
@@ -182,7 +183,7 @@ PyObject * vl_sift_python(
 		VlSiftFilt *filt;
 		vl_bool first;
 		double *frames = NULL;
-		vl_uint8 *descr = NULL;
+		vl_sift_pix *descr = NULL;
 
 		int nframes = 0, reserved = 0, i, j, q;
 
@@ -319,6 +320,11 @@ PyObject * vl_sift_python(
 						filt, angles, k);
 				}
 
+				/* Check if upright SIFT in use ........................... */
+				if (opt_upright_sift && nangles > 1) {
+					nangles = 1;
+				}
+
 				/* For each orientation ................................... */
 				for (q = 0; q < nangles; ++q) {
 					vl_sift_pix buf[128];
@@ -337,8 +343,8 @@ PyObject * vl_sift_python(
 						reserved += 2 * nkeys;
 						frames = (double *) realloc(frames, 4 * sizeof(double)
 								* reserved);
-						descr = (vl_uint8 *) realloc(descr, 128
-								* sizeof(vl_uint8) * reserved);
+						descr = (vl_sift_pix *) realloc(descr, 128
+								* sizeof(vl_sift_pix) * reserved);
 					}
 
 					/* Save back with MATLAB conventions. Notice that the input
@@ -349,9 +355,7 @@ PyObject * vl_sift_python(
 					frames[4 * nframes + 3] = VL_PI / 2 - angles[q];
 
 					for (j = 0; j < 128; ++j) {
-						double x = 512.0 * rbuf[j];
-						x = (x < 255.0) ? x : 255.0;
-						descr[128 * nframes + j] = (vl_uint8) (x);
+						descr[128 * nframes + j] = rbuf[j];
 					}
 					//}
 
@@ -382,7 +386,7 @@ PyObject * vl_sift_python(
 		// descriptors
 		dims[0] = 128;
 		_descriptors = PyArray_NewFromDescr(
-			&PyArray_Type, PyArray_DescrFromType(PyArray_UBYTE),
+			&PyArray_Type, PyArray_DescrFromType(PyArray_FLOAT),
 			2, dims, NULL, (char*)descr, NPY_F_CONTIGUOUS, NULL);
 		PyArray_FLAGS(_descriptors) |= NPY_OWNDATA;
 

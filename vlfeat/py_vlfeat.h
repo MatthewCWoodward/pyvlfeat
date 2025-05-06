@@ -63,6 +63,7 @@ PyObject * vl_sift_python(
 		double opt_magnif = -1,
 		double opt_window_size = -1,
 		bool opt_orientations = false,
+		bool opt_upright_sift = false,
 		int opt_verbose = 0);
 
 /**

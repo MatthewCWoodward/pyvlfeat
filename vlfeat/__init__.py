@@ -14,14 +14,15 @@ def vl_sift(
 		magnif=-1.0,
 		window_size=-1.0,
 		orientations=False,
+		upright_sift=False,
 		verbose=0):
 	""" Computes the SIFT frames [1] (keypoints) F of the image I. I is a 
 	gray-scale image in single precision. Each column of F is a feature frame 
 	and has the format [X;Y;S;TH], where X,Y is the (fractional) center of the 
 	frame, S is the scale and TH is the orientation (in radians). 
 	Computes the SIFT descriptors [1] as well. Each column of D is the 
-	descriptor of the corresponding frame in F. A descriptor is a 
-	128-dimensional vector of class UINT8. 
+	descriptor of the corresponding frame in F. A descriptor is a
+	128-dimensional	vector of class FLOAT (to better match TheiaSfM).
 	
 	@param data         A gray-scale image in single precision 
 	                    (float numpy array).
@@ -48,6 +49,8 @@ def vl_sift(
 	                    approximatively 4 * MAGNIF. The default value is 3.
 	@param orientations Compute the orientantions of the frames overriding the 
 	                    orientation specified by the 'Frames' option.
+	@param upright_sift Only use the first orientation at a detected keypoint
+						location.
 	@param verbose      Be verbose (may be repeated to increase the verbosity
 	                    level). 
 	"""
@@ -55,10 +58,10 @@ def vl_sift(
 		data = numpy.array(data, order='F')		
 	if not frames.flags['F_CONTIGUOUS']:
 		frames = numpy.array(frames, order='F')
-		
-	return _vlfeat.vl_sift(data, frames, octaves, levels, first_octave, 
-						peak_thresh, edge_thresh, norm_thresh, magnif,
-						window_size, orientations, verbose)
+
+	return _vlfeat.vl_sift(data, frames, octaves, levels, first_octave,
+						   peak_thresh, edge_thresh, norm_thresh, magnif,
+						   window_size, orientations, upright_sift, verbose)
 
 def vl_mser(
 		data, 
