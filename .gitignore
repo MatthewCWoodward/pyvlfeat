@@ -91,3 +91,5 @@ example/notebooks/.ipynb_checkpoints/*
 # ctags
 tags
  
+# install cache
+*.egg-info/
